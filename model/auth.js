@@ -4,20 +4,26 @@ import bcrypt from "bcryptjs";
 const authSchema = new mongoose.Schema({
   userName: {
     type: String,
+    required: true,
   },
   email: {
     type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
   },
   password: {
     type: String,
+    required: true,
   },
-role:{
-    type:String,
-    enum:['Admin','Parent','Student']
-}
+  role: {
+    type: String,
+    enum: ['Admin', 'Parent', 'Student'],
+ // You can set a default role if needed
+  },
 });
 
-// Hash password before saving to database
+// Hash password before saving to the database
 authSchema.pre("save", async function (next) {
   const user = this;
   if (!user.isModified("password")) return next();
@@ -41,4 +47,4 @@ authSchema.methods.comparePassword = async function (candidatePassword) {
   }
 };
 
-export const authModel = mongoose.model("users", authSchema);
+export const authModel = mongoose.model("User", authSchema);
