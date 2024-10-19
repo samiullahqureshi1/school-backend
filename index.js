@@ -1,5 +1,5 @@
 import express from 'express'
-import { dbConnection } from './connection/db_connection'
+import { dbConnection } from './connection/db_connection.js'
 import dotenv from 'dotenv'
 
 dotenv.config()
